@@ -1,263 +1,256 @@
 @if (infoBoda()) {
-  <main class="invitacion-premium-wrapper">
+  <main class="theme-elegant">
 
-    <ngx-particles
-      id="tsparticles"
-      [options]="particlesOptions"
-      [particlesInit]="particlesInit"
-      class="particles-canvas">
-    </ngx-particles>
+    <audio #audioPlayer loop>
+      <source src="/audio/cancion.mp3" type="audio/mpeg">
+    </audio>
+    <button class="floating-music-btn" (click)="toggleAudio(audioPlayer)" [class.playing]="isPlaying()">
+      <div class="music-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+      </div>
+    </button>
 
-    <section class="section hero-section fade-in-section">
-      <div class="card hero-card">
-        <div class="hero-overlay">
-          <p class="subtitle gold-text">Nuestra Boda</p>
-          <h1 class="rustic-title gold-text">{{ infoBoda().novia }} & {{ infoBoda().novio }}</h1>
-          <p class="hero-date">{{ infoBoda().ceremonia?.fecha | date:'d MMMM, yyyy' }}</p>
+    <section id="cover">
+      <p class="c-tag">Tenemos una noticia...</p>
+      <div class="c-photo">
+        <img src="https://i.pinimg.com/originals/d9/c1/9f/d9c19fc8b37260cc75cb82e4e706e0b1.jpg" alt="Novios">
+      </div>
+      <p class="c-names">
+        {{ infoBoda().novia }}
+        <span class="c-amp">&</span>
+        {{ infoBoda().novio }}
+      </p>
+      <div class="c-hint">
+        <span>¡Pulsa aquí y desliza!</span>
+        <span class="c-arrow">↓</span>
+      </div>
+    </section>
 
-          <div class="countdown-container">
-            <div class="time-box"><span>{{ dias() }}</span><p>Días</p></div>
-            <div class="time-box"><span>{{ horas() }}</span><p>Hrs</p></div>
-            <div class="time-box"><span>{{ minutos() }}</span><p>Min</p></div>
-            <div class="time-box"><span>{{ segundos() }}</span><p>Seg</p></div>
-          </div>
+    <section id="nc">
+      <span class="nc-heart rv d1">♥</span>
+      <p class="nc-lbl rv d1">¡Nos Casamos!</p>
+      <p class="nc-date rv d2">{{ infoBoda().ceremonia?.fecha | date:'dd · MM · yyyy' }}</p>
+      <div class="divl rv d2"></div>
+      <p class="nc-quote rv d3">{{ infoBoda().fraseInicial }}</p>
 
-          <p class="phrase">{{ infoBoda().fraseInicial }}</p>
-          <a [href]="infoBoda().calendarUrl" target="_blank" class="btn-solid btn-hero">Agendar Fecha</a>
+      <div class="countdown-elegant rv d3">
+        <div class="cd-item">
+          <span class="cd-number">{{ dias() }}</span>
+          <span class="cd-label">Días</span>
+        </div>
+        <div class="cd-separator">:</div>
+        <div class="cd-item">
+          <span class="cd-number">{{ horas() }}</span>
+          <span class="cd-label">Hrs</span>
+        </div>
+        <div class="cd-separator">:</div>
+        <div class="cd-item">
+          <span class="cd-number">{{ minutos() }}</span>
+          <span class="cd-label">Min</span>
+        </div>
+        <div class="cd-separator">:</div>
+        <div class="cd-item">
+          <span class="cd-number">{{ segundos() }}</span>
+          <span class="cd-label">Seg</span>
+        </div>
+      </div>
+      <a [href]="infoBoda().calendarUrl" target="_blank" class="gbtn rv d3" style="margin-top: 1.5rem;">Agendar en Calendario</a>
+    </section>
+
+    <section class="section-parents">
+      <span class="lbl rv">Nuestros Padres</span>
+      <p class="dc-t rv d1" style="font-size: 1.4rem; margin-bottom: 2.5rem;">Con la bendición de nuestros padres</p>
+      <div class="parents-grid rv d2">
+        <div class="parents-col">
+          <p class="parents-label">Padres de la novia</p>
+          <p class="parents-names">{{ infoBoda().padresNovia }}</p>
+        </div>
+        <div class="parents-col">
+          <p class="parents-label">Padres del novio</p>
+          <p class="parents-names">{{ infoBoda().padresNovio }}</p>
         </div>
       </div>
     </section>
 
-    <section class="section fade-in-section">
-      <div class="card section-card text-center">
-        <h2 class="title-gold">Nuestros Padres</h2>
-        <p class="romantic-subheader">El origen de nuestra historia y nuestro mayor ejemplo de amor.</p>
-        <div class="parents-container">
-          <div class="parent-box">
-            <p class="parent-role">Padres de la Novia</p>
-            <p class="light-text">{{ infoBoda().padresNovia }}</p>
-          </div>
-          <div class="parent-box">
-            <p class="parent-role">Padres del Novio</p>
-            <p class="light-text">{{ infoBoda().padresNovio }}</p>
-          </div>
-        </div>
-      </div>
+    <section class="esec">
+      <p class="e-cat rv d1">Ceremonia</p>
+      <h2 class="e-venue rv d1">{{ infoBoda().ceremonia.lugar }}</h2>
+      <p class="e-time rv d2">{{ infoBoda().ceremonia.fecha | date:'h:mm a' }}</p>
+      <div class="divl rv d2"></div>
+      <p class="e-addr rv d3">{{ infoBoda().ceremonia.direccion }}</p>
+      <a [href]="infoBoda().ceremonia.mapsUrl" target="_blank" class="gbtn rv d3">
+        <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Ver en Maps
+      </a>
     </section>
 
-    <section class="section fade-in-section">
-      <div class="card section-card">
-        <h2 class="title-gold">Dónde & Cuándo</h2>
-        <p class="romantic-subheader text-center">El lugar exacto donde el tiempo se detendrá para siempre.</p>
-        <div class="cards-container">
-          <div class="inner-card">
-            <h3 class="card-title">Ceremonia</h3>
-            <p class="time">{{ infoBoda().ceremonia.fecha | date:'h:mm a' }}</p>
-            <p class="place">{{ infoBoda().ceremonia.lugar }}</p>
-            <p class="address">{{ infoBoda().ceremonia.direccion }}</p>
-            <a [href]="infoBoda().ceremonia.mapsUrl" target="_blank" class="btn-outline">Ver Mapa</a>
-          </div>
-
-          @if (infoBoda().recepcion?.lugar) {
-            <div class="inner-card">
-              <h3 class="card-title">Recepción</h3>
-              <p class="time">{{ infoBoda().recepcion.fecha | date:'h:mm a' }}</p>
-              <p class="place">{{ infoBoda().recepcion.lugar }}</p>
-              <p class="address">{{ infoBoda().recepcion.direccion }}</p>
-              <a [href]="infoBoda().recepcion.mapsUrl" target="_blank" class="btn-outline">Ver Mapa</a>
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-
-    @if (infoBoda().galeria?.length > 0) {
-      <section class="section fade-in-section">
-        <div class="card section-card">
-          <h2 class="title-gold">Momentos</h2>
-          <p class="romantic-subheader text-center">Instantes robados al tiempo que se volvieron eternidad.</p>
-
-          @if (infoBoda().galeria[0] === 'pendiente') {
-            <div class="pending-info">
-              <p>Estamos trabajando en una selección especial<br>de nuestras mejores fotografías.</p>
-              <div class="loading-dots"><span></span><span></span><span></span></div>
-            </div>
-          } @else {
-            <div class="gallery-grid">
-              @for (imgUrl of infoBoda().galeria; track imgUrl) {
-                <div class="gallery-item">
-                  <img [src]="imgUrl" alt="Foto Novios" loading="lazy">
-                </div>
-              }
-            </div>
-          }
-        </div>
-      </section>
-    }
-
-    @if (infoBoda().itinerario?.length > 0) {
-      <section class="section fade-in-section">
-        <div class="card section-card">
-          <h2 class="title-gold">Itinerario</h2>
-          <p class="romantic-subheader text-center">La magia de nuestra noche, paso a paso.</p>
-
-          @if (infoBoda().itinerario[0].estado === 'pendiente') {
-            <div class="pending-info">
-              <p>Estamos diseñando cuidadosamente el cronograma<br>de nuestro gran día para ti.</p>
-              <div class="loading-dots"><span></span><span></span><span></span></div>
-            </div>
-          } @else {
-            <div class="timeline-photo-grid">
-              @for (item of infoBoda().itinerario; track item.hora) {
-                <div class="timeline-photo-card" [style.backgroundImage]="'url(' + item.imagen + ')'">
-                  <div class="timeline-photo-overlay">
-                    <h4 class="gold-text">{{ item.hora }}</h4>
-                    <p>{{ item.evento }}</p>
-                  </div>
-                </div>
-              }
-            </div>
-          }
-        </div>
-      </section>
-    }
-
-    @if (infoBoda().menu?.entrada || infoBoda().menu?.estado === 'pendiente') {
-      <section class="section fade-in-section">
-        <div class="card section-card">
-          <h2 class="title-gold">Nuestro Menú</h2>
-          <p class="romantic-subheader text-center">Un deleite exquisito preparado para celebrar juntos.</p>
-
-          @if (infoBoda().menu.estado === 'pendiente') {
-            <div class="pending-info">
-              <p>Próximamente revelaremos la experiencia<br>gastronómica que hemos preparado.</p>
-              <div class="loading-dots"><span></span><span></span><span></span></div>
-            </div>
-          } @else {
-            <div class="menu-list">
-              <div class="menu-item"><h5>Entrada</h5><p class="light-text">{{ infoBoda().menu.entrada }}</p></div>
-              <div class="menu-item"><h5>Plato Fuerte</h5><p class="light-text">{{ infoBoda().menu.platoFuerte }}</p></div>
-              <div class="menu-item"><h5>Postre</h5><p class="light-text">{{ infoBoda().menu.postre }}</p></div>
-            </div>
-          }
-        </div>
+    @if (infoBoda().recepcion?.lugar) {
+      <section class="esec">
+        <p class="e-cat rv d1">Recepción</p>
+        <h2 class="e-venue rv d1">{{ infoBoda().recepcion.lugar }}</h2>
+        <p class="e-time rv d2">{{ infoBoda().recepcion.fecha | date:'h:mm a' }}</p>
+        <div class="divl rv d2"></div>
+        <p class="e-addr rv d3">{{ infoBoda().recepcion.direccion }}</p>
+        <a [href]="infoBoda().recepcion.mapsUrl" target="_blank" class="gbtn rv d3">
+          <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Ver en Maps
+        </a>
       </section>
     }
 
     @if (infoBoda().dressCode?.tipo) {
-      <section class="section fade-in-section">
-        <div class="card section-card">
-          <h2 class="title-gold">Dress Code</h2>
-          <p class="romantic-subheader text-center">Elegancia absoluta para acompañarnos.</p>
-          <div class="split-image-container">
-            <div class="split-image">
-              <img [src]="infoBoda().dressCode.imagenMujer" alt="Ellas">
-              <div class="img-overlay"><p>Ellas</p></div>
-            </div>
-            <div class="split-image">
-              <img [src]="infoBoda().dressCode.imagenHombre" alt="Ellos">
-              <div class="img-overlay"><p>Ellos</p></div>
-            </div>
+      <section id="dc">
+        <span class="lbl rv">Dress Code</span>
+        <p class="dc-t rv d1">{{ infoBoda().dressCode.tipo }}</p>
+        <div class="divl rv d1"></div>
+        <p class="dc-note rv d2">{{ infoBoda().dressCode.nota }}</p>
+        <div class="dc-row rv d3">
+          <div class="dc-ic">
+            <svg viewBox="0 0 58 78" fill="none" stroke="#7a5c3a" stroke-width="1.4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="6" width="28" height="36" rx="3"/>
+              <path d="M15 6C15 6 22 20 29 20C36 20 43 6 43 6"/>
+              <line x1="26" y1="20" x2="26" y2="42"/><line x1="32" y1="20" x2="32" y2="42"/>
+              <rect x="20" y="42" width="7" height="28" rx="2"/>
+              <rect x="31" y="42" width="7" height="28" rx="2"/>
+              <line x1="15" y1="42" x2="43" y2="42"/>
+              <rect x="26" y="26" width="6" height="8" rx="1" fill="#c9a87c" stroke="none" opacity=".6"/>
+            </svg>
+            <span>Caballero</span>
           </div>
-          <div class="text-center">
-            <p class="dress-type gold-text">{{ infoBoda().dressCode.tipo }}</p>
-            <p class="light-text">{{ infoBoda().dressCode.nota }}</p>
+          <div class="dc-ic">
+            <svg viewBox="0 0 58 78" fill="none" stroke="#7a5c3a" stroke-width="1.4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="29" cy="12" rx="10" ry="11"/>
+              <path d="M19 23C9 30 7 50 5 72L53 72C51 50 49 30 39 23"/>
+              <path d="M19 23C23 33 29 37 29 37C29 37 35 33 39 23"/>
+            </svg>
+            <span>Dama</span>
           </div>
         </div>
       </section>
     }
 
-    @if (infoBoda().regalos?.banco || infoBoda().regalos?.estado === 'pendiente') {
-      <section class="section fade-in-section">
-        <div class="card section-card">
-          <h2 class="title-gold">Mesa de Regalos</h2>
-          <p class="romantic-subheader text-center">El regalo más invaluable es su presencia.</p>
+    <section id="regalo">
+      <span class="lbl rv">Mesa de Regalos</span>
+      <p class="reg-d rv d1">Nuestro mejor regalo es su presencia, pero si desean hacernos un obsequio, aquí están nuestros datos:</p>
+      <p class="reg-nm rv d2">Adriana Yesenia Reyes Santos</p>
+      <button class="cpbtn rv d3" (click)="copyAcc()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        5579 0701 1952 9355
+      </button>
+      <p class="toast" id="t1">¡Copiado! 🎉</p>
+    </section>
 
-          @if (infoBoda().regalos.estado === 'pendiente') {
-             <div class="pending-info">
-              <p>Estamos finalizando los detalles de nuestra<br>mesa de regalos y aportaciones.</p>
-              <div class="loading-dots"><span></span><span></span><span></span></div>
-            </div>
-          } @else {
-            <p class="text-center light-text">{{ infoBoda().regalos.mensaje }}</p>
-            <div class="bank-details">
-              <p><strong class="gold-text">Banco:</strong> {{ infoBoda().regalos.banco }}</p>
-              <p><strong class="gold-text">Cuenta:</strong> {{ infoBoda().regalos.cuenta }}</p>
-              <p><strong class="gold-text">CLABE:</strong> {{ infoBoda().regalos.clabe }}</p>
-              <p><strong class="gold-text">Titular:</strong> {{ infoBoda().regalos.titular }}</p>
-            </div>
+    <section id="album">
+      <span class="lbl rv">Álbum de Fotos</span>
+      <p class="alb-d rv d1">¡Ayúdanos a inmortalizar cada momento!</p>
+
+      <div class="qr-box rv d2" (click)="copyCode()">
+        <svg viewBox="0 0 120 120" width="130" height="130" xmlns="http://www.w3.org/2000/svg">
+          <rect width="120" height="120" fill="#fff"/>
+          <rect x="8" y="8" width="42" height="42" fill="none" stroke="#6b4c2a" stroke-width="4"/>
+          <rect x="18" y="18" width="22" height="22" fill="#6b4c2a"/>
+          <rect x="70" y="8" width="42" height="42" fill="none" stroke="#6b4c2a" stroke-width="4"/>
+          <rect x="80" y="18" width="22" height="22" fill="#6b4c2a"/>
+          <rect x="8" y="70" width="42" height="42" fill="none" stroke="#6b4c2a" stroke-width="4"/>
+          <rect x="18" y="80" width="22" height="22" fill="#6b4c2a"/>
+          <rect x="56" y="56" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="70" y="56" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="84" y="56" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="98" y="56" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="56" y="70" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="84" y="70" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="70" y="84" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="98" y="84" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="56" y="98" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="84" y="98" width="8" height="8" fill="#6b4c2a"/>
+          <rect x="98" y="98" width="8" height="8" fill="#6b4c2a"/>
+        </svg>
+      </div>
+      <p class="alb-txt rv d2">Escanea este QR o haz clic en él y comparte las fotos que tomes durante la boda.</p>
+
+      <button class="cpbtn rv d3" (click)="copyCode()" style="margin-bottom: 2rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        BODA-M&C
+      </button>
+      <p class="toast" id="t2">¡Copiado! 🎉</p>
+
+      <div class="carousel-container rv d3">
+        <div class="carousel-track" [style.transform]="'translateX(-' + (currentSlideIndex() * 100) + '%)'">
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1583939411023-14783179e581?q=80&w=800&auto=format&fit=crop" alt="Momento 1" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Momento 2" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=800&auto=format&fit=crop" alt="Momento 3" loading="lazy">
+          </div>
+        </div>
+
+        <button class="carousel-btn prev" (click)="prevSlide()" aria-label="Anterior">‹</button>
+        <button class="carousel-btn next" (click)="nextSlide()" aria-label="Siguiente">›</button>
+
+        <div class="carousel-dots">
+          @for (idx of slidesArray; track idx) {
+            <button
+              class="dot"
+              [class.active]="idx === currentSlideIndex()"
+              (click)="setSlide(idx)"
+              aria-label="Ir a imagen">
+            </button>
           }
         </div>
-      </section>
-    }
-
-    @if (infoBoda().faqs?.length > 0) {
-      <section class="section fade-in-section">
-        <div class="card section-card">
-          <h2 class="title-gold">Preguntas Frecuentes</h2>
-          <p class="romantic-subheader text-center">Detalles importantes para acompañarnos.</p>
-          <div class="faq-list">
-            @for (faq of infoBoda().faqs; track faq.q) {
-              <div class="faq-item">
-                <h6 class="gold-text">{{ faq.q }}</h6>
-                <p class="light-text">{{ faq.a }}</p>
-              </div>
-            }
-          </div>
-        </div>
-      </section>
-    }
-
-    <section class="section fade-in-section">
-      <div class="card section-card rsvp-container">
-        <h2 class="title-gold">Confirmar Asistencia</h2>
-        <p class="romantic-subheader text-center">Esperamos con ilusión compartir nuestra alegría.</p>
-        <form [action]="infoBoda().rsvpEndpoint" method="POST" class="elegant-form">
-          <div class="form-group">
-            <label>Nombre Completo</label>
-            <input type="text" name="Nombre" required>
-          </div>
-
-          <div class="form-group">
-            <label>¿Podrás acompañarnos?</label>
-            <div class="radio-group">
-              <input type="radio" id="asiste-si" name="Asistencia" value="Si" required>
-              <label for="asiste-si" class="radio-btn">Sí, asistiré</label>
-              <input type="radio" id="asiste-no" name="Asistencia" value="No">
-              <label for="asiste-no" class="radio-btn">No podré</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Dieta Especial / Alergias</label>
-            <input type="text" name="Dieta">
-          </div>
-
-          <div class="form-group">
-            <label>Dejanos un mensaje/consejo para nuestra vida en matrimonio...</label>
-            <textarea name="Mensaje" rows="3"></textarea>
-          </div>
-
-          <button type="submit" class="btn-solid btn-full">Enviar Confirmación</button>
-        </form>
       </div>
     </section>
 
-    <audio #audioPlayer loop>
-      <source src="/audio/cancion.mp3" type="audio/mpeg">
-      Tu navegador no soporta el elemento de audio.
-    </audio>
+    <section id="rsvp">
+      <p class="rsvp-q rv">Queremos que seáis testigos de nuestro amor<br>acompañándonos en este día tan especial</p>
+      <span class="lbl rv d1">Asistencia</span>
+      <p class="rsvp-txt rv d1">¿Nos acompañas?</p>
 
-    <button class="btn-audio" (click)="toggleAudio(audioPlayer)">
-      <img [src]="isPlaying() ? '/images/pause.png' : '/images/play.png'" alt="Music Control">
-    </button>
+      <form [action]="infoBoda().rsvpEndpoint" method="POST" class="rsvp-form rv d2">
+        <div class="form-group">
+          <input type="text" name="Nombre" placeholder="Nombre completo" required>
+        </div>
 
-    <a [href]="infoBoda().whatsappContacto" target="_blank" class="btn-whatsapp">WhatsApp</a>
+        <div class="form-group radio-group">
+          <label class="radio-label">
+            <input type="radio" name="Asistencia" value="Si" checked>
+            <span>Sí, asistiré</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="Asistencia" value="No">
+            <span>No podré asistir</span>
+          </label>
+        </div>
 
-    <footer class="agency-footer">
-      <img src="/images/logoo.png" alt="D-Creativo Logo" class="footer-logo">
-      <p>Premium Digital Invitations</p>
+        <div class="form-group">
+          <input type="text" name="Dieta" placeholder="Alergias o dieta especial (Opcional)">
+        </div>
+
+        <div class="form-group">
+          <textarea name="Mensaje" rows="2" placeholder="Déjanos un mensaje..."></textarea>
+        </div>
+
+        <button type="submit" class="rsvp-btn rv d3">Confirmar Asistencia</button>
+      </form>
+    </section>
+
+    <footer id="footer">
+      <p class="ft-tag rv d1">Nos vemos en...</p>
+      <p class="ft-nm rv d2">{{ infoBoda().novia }} & {{ infoBoda().novio }}</p>
+      <p class="ft-dt rv d2">{{ infoBoda().ceremonia?.fecha | date:'dd · MM · yyyy' }}</p>
     </footer>
+
+    <a [href]="infoBoda().whatsappContacto" target="_blank" class="whatsapp-float">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M12.002 2A10 10 0 0 0 2 12c0 1.76.456 3.425 1.272 4.906L2 22l5.244-1.222A9.957 9.957 0 0 0 12.002 22a10 10 0 0 0 0-20zm.003 16.516a8.214 8.214 0 0 1-4.183-1.14l-.3-.178-3.111.725.742-3.003-.195-.312A8.196 8.196 0 0 1 3.79 12a8.216 8.216 0 1 1 8.215 6.516zm4.512-6.175c-.247-.124-1.464-.723-1.691-.806-.228-.083-.394-.124-.56.124-.165.248-.64 .806-.784.972-.144.166-.288.187-.535.062-1.02-.516-1.896-1.094-2.613-2.096-.185-.259.186-.24.552-.975.041-.083.02-.165-.02-.248-.042-.083-.56-1.353-.767-1.85-.202-.486-.407-.42-.56-.427l-.478-.008c-.165 0-.434.062-.66.31-.227.248-.867.848-.867 2.068 0 1.22.888 2.401 1.011 2.566.124.165 1.75 2.673 4.238 3.748.593.256 1.055.408 1.415.523.595.19 1.137.163 1.564.098.48-.073 1.464-.6 1.67-1.178.207-.579.207-1.075.145-1.178-.063-.103-.228-.165-.475-.289z"/>
+      </svg>
+    </a>
 
   </main>
 }
