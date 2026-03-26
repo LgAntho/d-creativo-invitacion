@@ -1,9 +1,25 @@
 @if (infoBoda()) {
-  <main class="theme-elegant">
+  <main class="theme-elegant" [class.is-locked]="!invitacionAbierta()">
 
     <audio #audioPlayer loop>
       <source src="/audio/cancion.mp3" type="audio/mpeg">
     </audio>
+
+    <div class="envelope-overlay" [class.open]="invitacionAbierta()">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-letter">
+          <p class="envelope-names">{{ infoBoda().novia }} & {{ infoBoda().novio }}</p>
+          <p class="envelope-date">{{ infoBoda().ceremonia?.fecha | date:'dd.MM.yy' }}</p>
+        </div>
+        <div class="envelope-front"></div>
+
+        <div class="wax-seal" (click)="abrirInvitacion(audioPlayer)">
+          Abrir
+        </div>
+      </div>
+    </div>
+
     <button class="floating-music-btn" (click)="toggleAudio(audioPlayer)" [class.playing]="isPlaying()">
       <div class="music-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -17,17 +33,11 @@
     <section id="cover">
       <p class="c-tag">Tenemos una noticia...</p>
       <div class="c-photo">
-        <img src="https://i.pinimg.com/originals/d9/c1/9f/d9c19fc8b37260cc75cb82e4e706e0b1.jpg" alt="Novios">
+        <img src="/images/6.png" alt="Novios">
       </div>
       <p class="c-names">
-        {{ infoBoda().novia }}
-        <span class="c-amp">&</span>
-        {{ infoBoda().novio }}
+        {{ infoBoda().novia }} <span class="c-amp">&</span> {{ infoBoda().novio }}
       </p>
-      <div class="c-hint">
-        <span>¡Pulsa aquí y desliza!</span>
-        <span class="c-arrow">↓</span>
-      </div>
     </section>
 
     <section id="nc">
@@ -38,25 +48,13 @@
       <p class="nc-quote rv d3">{{ infoBoda().fraseInicial }}</p>
 
       <div class="countdown-elegant rv d3">
-        <div class="cd-item">
-          <span class="cd-number">{{ dias() }}</span>
-          <span class="cd-label">Días</span>
-        </div>
+        <div class="cd-item"><span class="cd-number">{{ dias() }}</span><span class="cd-label">Días</span></div>
         <div class="cd-separator">:</div>
-        <div class="cd-item">
-          <span class="cd-number">{{ horas() }}</span>
-          <span class="cd-label">Hrs</span>
-        </div>
+        <div class="cd-item"><span class="cd-number">{{ horas() }}</span><span class="cd-label">Hrs</span></div>
         <div class="cd-separator">:</div>
-        <div class="cd-item">
-          <span class="cd-number">{{ minutos() }}</span>
-          <span class="cd-label">Min</span>
-        </div>
+        <div class="cd-item"><span class="cd-number">{{ minutos() }}</span><span class="cd-label">Min</span></div>
         <div class="cd-separator">:</div>
-        <div class="cd-item">
-          <span class="cd-number">{{ segundos() }}</span>
-          <span class="cd-label">Seg</span>
-        </div>
+        <div class="cd-item"><span class="cd-number">{{ segundos() }}</span><span class="cd-label">Seg</span></div>
       </div>
       <a [href]="infoBoda().calendarUrl" target="_blank" class="gbtn rv d3" style="margin-top: 1.5rem;">Agendar en Calendario</a>
     </section>
@@ -102,93 +100,49 @@
       </section>
     }
 
-    @if (infoBoda().dressCode?.tipo) {
-      <section id="dc">
-        <span class="lbl rv">Dress Code</span>
-        <p class="dc-t rv d1">{{ infoBoda().dressCode.tipo }}</p>
-        <div class="divl rv d1"></div>
-        <p class="dc-note rv d2">{{ infoBoda().dressCode.nota }}</p>
-        <div class="dc-row rv d3">
-          <div class="dc-ic">
-            <svg viewBox="0 0 58 78" fill="none" stroke="#7a5c3a" stroke-width="1.4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
-              <rect x="15" y="6" width="28" height="36" rx="3"/>
-              <path d="M15 6C15 6 22 20 29 20C36 20 43 6 43 6"/>
-              <line x1="26" y1="20" x2="26" y2="42"/><line x1="32" y1="20" x2="32" y2="42"/>
-              <rect x="20" y="42" width="7" height="28" rx="2"/>
-              <rect x="31" y="42" width="7" height="28" rx="2"/>
-              <line x1="15" y1="42" x2="43" y2="42"/>
-              <rect x="26" y="26" width="6" height="8" rx="1" fill="#c9a87c" stroke="none" opacity=".6"/>
-            </svg>
-            <span>Caballero</span>
-          </div>
-          <div class="dc-ic">
-            <svg viewBox="0 0 58 78" fill="none" stroke="#7a5c3a" stroke-width="1.4" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="29" cy="12" rx="10" ry="11"/>
-              <path d="M19 23C9 30 7 50 5 72L53 72C51 50 49 30 39 23"/>
-              <path d="M19 23C23 33 29 37 29 37C29 37 35 33 39 23"/>
-            </svg>
-            <span>Dama</span>
-          </div>
+    <section id="dc">
+      <span class="lbl rv">Dress Code</span>
+      <p class="dc-t rv d1">{{ infoBoda().dressCode.tipo }}</p>
+      <div class="divl rv d1"></div>
+      <p class="dc-note rv d2">{{ infoBoda().dressCode.nota }}</p>
+
+      <div class="dc-row rv d3">
+        <div class="dc-ic">
+          <img src="/images/dresscode.png" alt="Dresscode" class="dress-img-specific">
         </div>
-      </section>
-    }
+      </div>
+    </section>
 
     <section id="regalo">
       <span class="lbl rv">Mesa de Regalos</span>
       <p class="reg-d rv d1">Nuestro mejor regalo es su presencia, pero si desean hacernos un obsequio, aquí están nuestros datos:</p>
       <p class="reg-nm rv d2">Adriana Yesenia Reyes Santos</p>
-      <button class="cpbtn rv d3" (click)="copyAcc()">
+      <button class="cpbtn rv d3" (click)="copyText('5579 0701 1952 9355', 't1')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
         5579 0701 1952 9355
       </button>
-      <p class="toast" id="t1">¡Copiado! 🎉</p>
+      <p class="toast" id="t1">¡Copiado!</p>
     </section>
 
     <section id="album">
       <span class="lbl rv">Álbum de Fotos</span>
       <p class="alb-d rv d1">¡Ayúdanos a inmortalizar cada momento!</p>
 
-      <div class="qr-box rv d2" (click)="copyCode()">
-        <svg viewBox="0 0 120 120" width="130" height="130" xmlns="http://www.w3.org/2000/svg">
-          <rect width="120" height="120" fill="#fff"/>
-          <rect x="8" y="8" width="42" height="42" fill="none" stroke="#6b4c2a" stroke-width="4"/>
-          <rect x="18" y="18" width="22" height="22" fill="#6b4c2a"/>
-          <rect x="70" y="8" width="42" height="42" fill="none" stroke="#6b4c2a" stroke-width="4"/>
-          <rect x="80" y="18" width="22" height="22" fill="#6b4c2a"/>
-          <rect x="8" y="70" width="42" height="42" fill="none" stroke="#6b4c2a" stroke-width="4"/>
-          <rect x="18" y="80" width="22" height="22" fill="#6b4c2a"/>
-          <rect x="56" y="56" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="70" y="56" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="84" y="56" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="98" y="56" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="56" y="70" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="84" y="70" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="70" y="84" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="98" y="84" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="56" y="98" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="84" y="98" width="8" height="8" fill="#6b4c2a"/>
-          <rect x="98" y="98" width="8" height="8" fill="#6b4c2a"/>
-        </svg>
-      </div>
+      <a href="https://drive.google.com/drive/folders/1tDLw2Bj0Nxld1qnWjj-Nri-VKP1LUKZw?usp=drive_link" target="_blank" style="text-decoration: none;">
+        <div class="qr-box rv d2">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1tDLw2Bj0Nxld1qnWjj-Nri-VKP1LUKZw%3Fusp%3Ddrive_link" alt="QR Google Drive" class="qr-code-img">
+        </div>
+      </a>
       <p class="alb-txt rv d2">Escanea este QR o haz clic en él y comparte las fotos que tomes durante la boda.</p>
-
-      <button class="cpbtn rv d3" (click)="copyCode()" style="margin-bottom: 2rem;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        BODA-M&C
-      </button>
-      <p class="toast" id="t2">¡Copiado! 🎉</p>
 
       <div class="carousel-container rv d3">
         <div class="carousel-track" [style.transform]="'translateX(-' + (currentSlideIndex() * 100) + '%)'">
-          <div class="carousel-slide">
-            <img src="https://images.unsplash.com/photo-1583939411023-14783179e581?q=80&w=800&auto=format&fit=crop" alt="Momento 1" loading="lazy">
-          </div>
-          <div class="carousel-slide">
-            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Momento 2" loading="lazy">
-          </div>
-          <div class="carousel-slide">
-            <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=800&auto=format&fit=crop" alt="Momento 3" loading="lazy">
-          </div>
+          <div class="carousel-slide"><img src="/images/1.png" alt="Momento 1" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/2.png" alt="Momento 2" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/3.png" alt="Momento 3" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/4.png" alt="Momento 4" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/5.png" alt="Momento 5" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/7.png" alt="Momento 6" loading="lazy"></div>
         </div>
 
         <button class="carousel-btn prev" (click)="prevSlide()" aria-label="Anterior">‹</button>
@@ -196,48 +150,59 @@
 
         <div class="carousel-dots">
           @for (idx of slidesArray; track idx) {
-            <button
-              class="dot"
-              [class.active]="idx === currentSlideIndex()"
-              (click)="setSlide(idx)"
-              aria-label="Ir a imagen">
-            </button>
+            <button class="dot" [class.active]="idx === currentSlideIndex()" (click)="setSlide(idx)" aria-label="Ir a imagen"></button>
           }
         </div>
       </div>
     </section>
 
     <section id="rsvp">
-      <p class="rsvp-q rv">Queremos que seáis testigos de nuestro amor<br>acompañándonos en este día tan especial</p>
+      <p class="rsvp-q rv">Queremos que sean testigos de nuestro amor<br>acompañándonos en este día tan especial</p>
       <span class="lbl rv d1">Asistencia</span>
       <p class="rsvp-txt rv d1">¿Nos acompañas?</p>
 
-      <form [action]="infoBoda().rsvpEndpoint" method="POST" class="rsvp-form rv d2">
-        <div class="form-group">
-          <input type="text" name="Nombre" placeholder="Nombre completo" required>
-        </div>
+      @if (formularioAbierto()) {
+        <p class="rv d2" style="font-family: var(--sans); font-size: 0.85rem; color: var(--gold-dk); font-weight: 600; text-transform: uppercase; margin-bottom: 2rem;">
+          Por favor confirma antes del 30 de abril de 2026.
+        </p>
 
-        <div class="form-group radio-group">
-          <label class="radio-label">
-            <input type="radio" name="Asistencia" value="Si" checked>
-            <span>Sí, asistiré</span>
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="Asistencia" value="No">
-            <span>No podré asistir</span>
-          </label>
-        </div>
+        <form (submit)="enviarFormulario($event)" class="rsvp-form rv d2">
+          <div class="form-group">
+            <input type="text" name="Nombre" placeholder="Nombre completo" required>
+          </div>
 
-        <div class="form-group">
-          <input type="text" name="Dieta" placeholder="Alergias o dieta especial (Opcional)">
-        </div>
+          <div class="form-group radio-group">
+            <label class="radio-label">
+              <input type="radio" name="Asistencia" value="Si" checked>
+              <span>Sí, asistiré</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="Asistencia" value="No">
+              <span>No podré asistir</span>
+            </label>
+          </div>
 
-        <div class="form-group">
-          <textarea name="Mensaje" rows="2" placeholder="Déjanos un mensaje..."></textarea>
-        </div>
+          <div class="form-group">
+            <textarea name="Mensaje" rows="2" placeholder="Déjanos un mensaje..."></textarea>
+          </div>
 
-        <button type="submit" class="rsvp-btn rv d3">Confirmar Asistencia</button>
-      </form>
+          <button type="submit" class="rsvp-btn rv d3" [disabled]="enviando()">
+            {{ enviando() ? 'Enviando...' : 'Confirmar Asistencia' }}
+          </button>
+
+          @if (mensajeExito()) {
+            <p style="color: var(--brown); text-align: center; margin-top: 1rem; font-weight: 600; animation: fdU 0.5s ease;">
+              ¡Gracias! Tu confirmación ha sido enviada.
+            </p>
+          }
+        </form>
+      }
+      @else {
+        <div class="rv d2" style="max-width: 450px; margin: 2rem auto; padding: 2.5rem 1.5rem; background: rgba(255,255,255,0.6); border-radius: 8px; border: 1px dashed rgba(201,168,124,.6);">
+          <p style="font-family: var(--serif); font-size: 1.4rem; color: var(--brown-dk); margin-bottom: 1rem;">La lista de invitados ha cerrado.</p>
+          <p style="font-family: var(--sans); font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">El periodo de confirmación de asistencia ha finalizado. Si necesitas comunicarnos algo urgente sobre tu asistencia, por favor contacta directamente a los novios.</p>
+        </div>
+      }
     </section>
 
     <footer id="footer">

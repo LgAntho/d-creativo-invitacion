@@ -7,7 +7,7 @@
   "padresNovio": "Marco Antonio Martínez Miranda y María de Jesús Ramírez Espinosa",
   "ceremonia": {
     "lugar": "Terraza del Hotel Dreams",
-    "fecha": "2026-05-09T19:00:00",
+    "fecha": "2026-05-09T18:00:00",
     "direccion": "Blvd. Benito Juarez 4 Tangolunda, 70989 Oaxaca, Oax.",
     "mapsUrl": "https://maps.app.goo.gl/piW2K4zUDcJJ18J48?g_st=ic"
   },
@@ -29,8 +29,7 @@
     "tipo": "Formal Elegante",
     "nota": "Código de vestimenta: Todo de negro.",
     "colorSugerido": "#000000",
-    "imagenMujer": "https://i.pinimg.com/736x/64/76/47/647647578b848f366e32c06dd8abe397.jpg",
-    "imagenHombre": "https://i.pinimg.com/1200x/09/da/d9/09dad98ec7a1a9e87f96468281fd3c14.jpg"
+    "imagenMujer": ""
   },
   "hoteles": [],
   "faqs": [],
@@ -42,5 +41,5 @@
   ],
   "calendarUrl": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Adriana+y+Marco&dates=20260509T190000Z/20260510T020000Z",
   "whatsappContacto": "https://wa.me/529511234567",
-  "rsvpEndpoint": "TU_URL_DE_SHEETMONKEY_AQUI"
+  "rsvpEndpoint": "https://script.google.com/macros/s/AKfycby26ZtTvFaOKPKKZXE3kLbI-Vn-M46QbWh8eewwsz9S2kLTGe0XrqjdT2cAUfKLtw/exec"
 }
