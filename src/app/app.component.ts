@@ -18,18 +18,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   minutos = signal(0);
   segundos = signal(0);
   private intervalo?: ReturnType<typeof setInterval>;
-
-  // UI e Interacciones
   isPlaying = signal(false);
   private observer?: IntersectionObserver;
-
-  // 👉 NUEVA VARIABLE PARA EL SOBRE DE CARGA
   invitacionAbierta = signal(false);
 
   // Carrusel
   currentSlideIndex = signal(0);
-  totalSlides = signal(6);
-  slidesArray = [0, 1, 2, 3, 4, 5];
+  totalSlides = signal(5);
+  slidesArray = [0, 1, 2, 3, 4];
 
   // Formulario RSVP
   enviando = signal(false);
@@ -62,8 +58,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
       if (data.fechaBoda) this.iniciarContador(data.fechaBoda);
 
-      // Eliminamos el setTimeout de aquí para que las animaciones
-      // solo arranquen cuando el sobre se abra.
     } catch (error) {
       console.error('Error cargando datos:', error);
     }

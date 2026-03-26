@@ -33,11 +33,15 @@
     <section id="cover">
       <p class="c-tag">Tenemos una noticia...</p>
       <div class="c-photo">
-        <img src="/images/6.png" alt="Novios">
+        <img src="/images/6.jpg" alt="Novios">
       </div>
       <p class="c-names">
         {{ infoBoda().novia }} <span class="c-amp">&</span> {{ infoBoda().novio }}
       </p>
+      <div class="c-hint">
+        <span>¡Pulsa aquí y desliza!</span>
+        <span class="c-arrow">↓</span>
+      </div>
     </section>
 
     <section id="nc">
@@ -74,31 +78,151 @@
       </div>
     </section>
 
-    <section class="esec">
-      <p class="e-cat rv d1">Ceremonia</p>
-      <h2 class="e-venue rv d1">{{ infoBoda().ceremonia.lugar }}</h2>
-      <p class="e-time rv d2">{{ infoBoda().ceremonia.fecha | date:'h:mm a' }}</p>
-      <div class="divl rv d2"></div>
-      <p class="e-addr rv d3">{{ infoBoda().ceremonia.direccion }}</p>
-      <a [href]="infoBoda().ceremonia.mapsUrl" target="_blank" class="gbtn rv d3">
-        <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        Ver en Maps
-      </a>
+    <section id="eventos" class="esec-events-container">
+      <h2 class="section-title text-center rv d1" style="margin-bottom: 3rem;">Dónde & Cuándo</h2>
+
+      <div class="events-flex-wrapper">
+
+        <div class="event-card rv d2">
+          <div class="event-icon-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="12" r="5"></circle>
+              <circle cx="15" cy="12" r="5"></circle>
+            </svg>
+          </div>
+          <p class="e-cat">Ceremonia</p>
+          <h2 class="e-venue">{{ infoBoda().ceremonia.lugar }}</h2>
+          <p class="e-time">{{ infoBoda().ceremonia.fecha | date:'h:mm a' }}</p>
+          <div class="divl"></div>
+          <p class="e-addr">{{ infoBoda().ceremonia.direccion }}</p>
+          <a [href]="infoBoda().ceremonia.mapsUrl" target="_blank" class="gbtn">
+            <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Ver en Maps
+          </a>
+        </div>
+
+        @if (infoBoda().recepcion?.lugar) {
+          <div class="event-card rv d3">
+            <div class="event-icon-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 22h8M12 15v7M7.5 4.5l2 10.5h5l2-10.5a1.5 1.5 0 0 0-1.5-1.5h-6a1.5 1.5 0 0 0-1.5 1.5zM12 4V2"></path>
+              </svg>
+            </div>
+            <p class="e-cat">Recepción</p>
+            <h2 class="e-venue">{{ infoBoda().recepcion.lugar }}</h2>
+            <p class="e-time">{{ infoBoda().recepcion.fecha | date:'h:mm a' }}</p>
+            <div class="divl"></div>
+            <p class="e-addr">{{ infoBoda().recepcion.direccion }}</p>
+            <a [href]="infoBoda().recepcion.mapsUrl" target="_blank" class="gbtn">
+              <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Ver en Maps
+            </a>
+          </div>
+        }
+      </div>
     </section>
 
-    @if (infoBoda().recepcion?.lugar) {
-      <section class="esec">
-        <p class="e-cat rv d1">Recepción</p>
-        <h2 class="e-venue rv d1">{{ infoBoda().recepcion.lugar }}</h2>
-        <p class="e-time rv d2">{{ infoBoda().recepcion.fecha | date:'h:mm a' }}</p>
-        <div class="divl rv d2"></div>
-        <p class="e-addr rv d3">{{ infoBoda().recepcion.direccion }}</p>
-        <a [href]="infoBoda().recepcion.mapsUrl" target="_blank" class="gbtn rv d3">
-          <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          Ver en Maps
-        </a>
-      </section>
-    }
+    <section id="itin">
+      <span class="lbl rv">Itinerario</span>
+      <p class="alb-d rv d1">Cronograma de nuestro gran día</p>
+
+      <div class="timeline rv d2">
+
+        <div class="tl-i">
+          <span class="tl-tm">6:00 p.m. <br> 7:00 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="5"></circle><circle cx="15" cy="12" r="5"></circle></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Ceremonia</span>
+              <span class="tl-sub">Sesión de fotos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">7:00 p.m. <br> 7:30 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M7.5 4.5l2 10.5h5l2-10.5a1.5 1.5 0 0 0-1.5-1.5h-6a1.5 1.5 0 0 0-1.5 1.5zM12 4V2"></path></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Sesión de Fotos</span>
+              <span class="tl-sub">Cóctel</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">7:30 p.m. <br> 7:50 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4M9 7h6M9 11h6"/></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Recepción</span>
+              <span class="tl-sub">Inicia servicio del Hotel</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">8:00 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"/><path d="M7 14v4"/><path d="M17 14v4"/><path d="M12 4A8 8 0 0 0 4 12v2h16v-2A8 8 0 0 0 12 4Z"/></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Cena</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">9:00 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Vals de novios</span>
+              <span class="tl-sub">Vals familiar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">9:10 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Baile</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">10:00 p.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M5 19l1 2 2-1-1-2-2 1z"/><path d="M17 19l2 1 1-2-2-1-1 2z"/></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Programa</span>
+              <span class="tl-sub">Ramo & Víbora de la mar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-i">
+          <span class="tl-tm">12:00 a.m.</span>
+          <span class="tl-dot"></span>
+          <div class="tl-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <div class="tl-text">
+              <span class="tl-ev">Fin del evento</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <section id="dc">
       <span class="lbl rv">Dress Code</span>
@@ -137,12 +261,11 @@
 
       <div class="carousel-container rv d3">
         <div class="carousel-track" [style.transform]="'translateX(-' + (currentSlideIndex() * 100) + '%)'">
-          <div class="carousel-slide"><img src="/images/1.png" alt="Momento 1" loading="lazy"></div>
-          <div class="carousel-slide"><img src="/images/2.png" alt="Momento 2" loading="lazy"></div>
-          <div class="carousel-slide"><img src="/images/3.png" alt="Momento 3" loading="lazy"></div>
-          <div class="carousel-slide"><img src="/images/4.png" alt="Momento 4" loading="lazy"></div>
-          <div class="carousel-slide"><img src="/images/5.png" alt="Momento 5" loading="lazy"></div>
-          <div class="carousel-slide"><img src="/images/7.png" alt="Momento 6" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/2.jpg" alt="Momento 2" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/3.jpg" alt="Momento 3" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/4.jpg" alt="Momento 4" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/5.jpg" alt="Momento 5" loading="lazy"></div>
+          <div class="carousel-slide"><img src="/images/7.jpg" alt="Momento 6" loading="lazy"></div>
         </div>
 
         <button class="carousel-btn prev" (click)="prevSlide()" aria-label="Anterior">‹</button>
