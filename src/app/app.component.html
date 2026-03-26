@@ -1,4 +1,5 @@
 @if (infoBoda()) {
+  @let boda = infoBoda();
   <main class="theme-elegant" [class.is-locked]="!invitacionAbierta()">
 
     <audio #audioPlayer loop>
@@ -9,8 +10,8 @@
       <div class="envelope">
         <div class="envelope-flap"></div>
         <div class="envelope-letter">
-          <p class="envelope-names">{{ infoBoda().novia }} & {{ infoBoda().novio }}</p>
-          <p class="envelope-date">{{ infoBoda().ceremonia?.fecha | date:'dd.MM.yy' }}</p>
+          <p class="envelope-names">{{ boda.novia }} & {{ boda.novio }}</p>
+          <p class="envelope-date">{{ boda.ceremonia?.fecha | date:'dd.MM.yy' }}</p>
         </div>
         <div class="envelope-front"></div>
 
@@ -36,16 +37,16 @@
         <img src="/images/6.jpg" alt="Novios">
       </div>
       <p class="c-names">
-        {{ infoBoda().novia }} <span class="c-amp">&</span> {{ infoBoda().novio }}
+        {{ boda.novia }} <span class="c-amp">&</span> {{ boda.novio }}
       </p>
     </section>
 
     <section id="nc">
       <span class="nc-heart rv d1">♥</span>
       <p class="nc-lbl rv d1">¡Nos Casamos!</p>
-      <p class="nc-date rv d2">{{ infoBoda().ceremonia?.fecha | date:'dd · MM · yyyy' }}</p>
+      <p class="nc-date rv d2">{{ boda.ceremonia?.fecha | date:'dd · MM · yyyy' }}</p>
       <div class="divl rv d2"></div>
-      <p class="nc-quote rv d3">{{ infoBoda().fraseInicial }}</p>
+      <p class="nc-quote rv d3">{{ boda.fraseInicial }}</p>
 
       <div class="countdown-elegant rv d3">
         <div class="cd-item"><span class="cd-number">{{ dias() }}</span><span class="cd-label">Días</span></div>
@@ -56,7 +57,7 @@
         <div class="cd-separator">:</div>
         <div class="cd-item"><span class="cd-number">{{ segundos() }}</span><span class="cd-label">Seg</span></div>
       </div>
-      <a [href]="infoBoda().calendarUrl" target="_blank" class="gbtn rv d3" style="margin-top: 1.5rem;">Agendar en Calendario</a>
+      <a [href]="boda.calendarUrl" target="_blank" class="gbtn rv d3" style="margin-top: 1.5rem;">Agendar en Calendario</a>
     </section>
 
     <section class="section-parents">
@@ -65,11 +66,11 @@
       <div class="parents-grid rv d2">
         <div class="parents-col">
           <p class="parents-label">Padres de la novia</p>
-          <p class="parents-names">{{ infoBoda().padresNovia }}</p>
+          <p class="parents-names">{{ boda.padresNovia }}</p>
         </div>
         <div class="parents-col">
           <p class="parents-label">Padres del novio</p>
-          <p class="parents-names">{{ infoBoda().padresNovio }}</p>
+          <p class="parents-names">{{ boda.padresNovio }}</p>
         </div>
       </div>
     </section>
@@ -87,17 +88,17 @@
             </svg>
           </div>
           <p class="e-cat">Ceremonia</p>
-          <h2 class="e-venue">{{ infoBoda().ceremonia.lugar }}</h2>
-          <p class="e-time">{{ infoBoda().ceremonia.fecha | date:'h:mm a' }}</p>
+          <h2 class="e-venue">{{ boda.ceremonia.lugar }}</h2>
+          <p class="e-time">{{ boda.ceremonia.fecha | date:'h:mm a' }}</p>
           <div class="divl"></div>
-          <p class="e-addr">{{ infoBoda().ceremonia.direccion }}</p>
-          <a [href]="infoBoda().ceremonia.mapsUrl" target="_blank" class="gbtn">
+          <p class="e-addr">{{ boda.ceremonia.direccion }}</p>
+          <a [href]="boda.ceremonia.mapsUrl" target="_blank" class="gbtn">
             <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             Ver en Maps
           </a>
         </div>
 
-        @if (infoBoda().recepcion?.lugar) {
+        @if (boda.recepcion?.lugar) {
           <div class="event-card rv d3">
             <div class="event-icon-header">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
@@ -105,11 +106,11 @@
               </svg>
             </div>
             <p class="e-cat">Recepción</p>
-            <h2 class="e-venue">{{ infoBoda().recepcion.lugar }}</h2>
-            <p class="e-time">{{ infoBoda().recepcion.fecha | date:'h:mm a' }}</p>
+            <h2 class="e-venue">{{ boda.recepcion.lugar }}</h2>
+            <p class="e-time">{{ boda.recepcion.fecha | date:'h:mm a' }}</p>
             <div class="divl"></div>
-            <p class="e-addr">{{ infoBoda().recepcion.direccion }}</p>
-            <a [href]="infoBoda().recepcion.mapsUrl" target="_blank" class="gbtn">
+            <p class="e-addr">{{ boda.recepcion.direccion }}</p>
+            <a [href]="boda.recepcion.mapsUrl" target="_blank" class="gbtn">
               <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
               Ver en Maps
             </a>
@@ -222,13 +223,13 @@
 
     <section id="dc">
       <span class="lbl rv">Dress Code</span>
-      <p class="dc-t rv d1">{{ infoBoda().dressCode.tipo }}</p>
+      <p class="dc-t rv d1">{{ boda.dressCode.tipo }}</p>
       <div class="divl rv d1"></div>
-      <p class="dc-note rv d2">{{ infoBoda().dressCode.nota }}</p>
+      <p class="dc-note rv d2">{{ boda.dressCode.nota }}</p>
 
       <div class="dc-row rv d3">
         <div class="dc-ic">
-          <img src="/images/dresscode.png" alt="Dresscode" class="dress-img-specific">
+          <img src="/images/dresscode.png" alt="Dresscode" class="dress-img-specific" loading="lazy">
         </div>
       </div>
     </section>
@@ -250,7 +251,7 @@
 
       <a href="https://drive.google.com/drive/folders/1tDLw2Bj0Nxld1qnWjj-Nri-VKP1LUKZw?usp=drive_link" target="_blank" style="text-decoration: none;">
         <div class="qr-box rv d2">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1tDLw2Bj0Nxld1qnWjj-Nri-VKP1LUKZw%3Fusp%3Ddrive_link" alt="QR Google Drive" class="qr-code-img">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1tDLw2Bj0Nxld1qnWjj-Nri-VKP1LUKZw%3Fusp%3Ddrive_link" alt="QR Google Drive" class="qr-code-img" loading="lazy">
         </div>
       </a>
       <p class="alb-txt rv d2">Escanea este QR o haz clic en él y comparte las fotos que tomes durante la boda.</p>
@@ -290,17 +291,18 @@
             <input type="text" name="Nombre" placeholder="Nombre completo" required>
           </div>
 
-          <div class="form-group radio-group">
-            <label class="radio-label">
-              <input type="radio" name="Asistencia" value="Si" checked>
-              <span>Sí, asistiré</span>
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="Asistencia" value="No">
-              <span>No podré asistir</span>
-            </label>
+          <div class="form-group custom-select-wrapper">
+            <select name="Asistencia" required class="custom-select">
+              <option value="" disabled selected>¿Nos acompañas?</option>
+              <option value="Si">Sí, asistiré</option>
+              <option value="No">No podré asistir</option>
+            </select>
+            <div class="select-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
           </div>
-
           <div class="form-group">
             <textarea name="Mensaje" rows="2" placeholder="Déjanos un mensaje..."></textarea>
           </div>
@@ -326,11 +328,11 @@
 
     <footer id="footer">
       <p class="ft-tag rv d1">Nos vemos en...</p>
-      <p class="ft-nm rv d2">{{ infoBoda().novia }} & {{ infoBoda().novio }}</p>
-      <p class="ft-dt rv d2">{{ infoBoda().ceremonia?.fecha | date:'dd · MM · yyyy' }}</p>
+      <p class="ft-nm rv d2">{{ boda.novia }} & {{ boda.novio }}</p>
+      <p class="ft-dt rv d2">{{ boda.ceremonia?.fecha | date:'dd · MM · yyyy' }}</p>
     </footer>
 
-    <a [href]="infoBoda().whatsappContacto" target="_blank" class="whatsapp-float">
+    <a [href]="boda.whatsappContacto" target="_blank" class="whatsapp-float">
       <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
         <path d="M12.002 2A10 10 0 0 0 2 12c0 1.76.456 3.425 1.272 4.906L2 22l5.244-1.222A9.957 9.957 0 0 0 12.002 22a10 10 0 0 0 0-20zm.003 16.516a8.214 8.214 0 0 1-4.183-1.14l-.3-.178-3.111.725.742-3.003-.195-.312A8.196 8.196 0 0 1 3.79 12a8.216 8.216 0 1 1 8.215 6.516zm4.512-6.175c-.247-.124-1.464-.723-1.691-.806-.228-.083-.394-.124-.56.124-.165.248-.64 .806-.784.972-.144.166-.288.187-.535.062-1.02-.516-1.896-1.094-2.613-2.096-.185-.259.186-.24.552-.975.041-.083.02-.165-.02-.248-.042-.083-.56-1.353-.767-1.85-.202-.486-.407-.42-.56-.427l-.478-.008c-.165 0-.434.062-.66.31-.227.248-.867.848-.867 2.068 0 1.22.888 2.401 1.011 2.566.124.165 1.75 2.673 4.238 3.748.593.256 1.055.408 1.415.523.595.19 1.137.163 1.564.098.48-.073 1.464-.6 1.67-1.178.207-.579.207-1.075.145-1.178-.063-.103-.228-.165-.475-.289z"/>
       </svg>
